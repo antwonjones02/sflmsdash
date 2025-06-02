@@ -11,7 +11,8 @@ let appData = {
 // Sample data from the provided JSON
 
 // Supabase Client Initialization
-import { createClient } from '@supabase/supabase-js';
+//import { createClient } from '@supabase/supabase-js';
+const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 const supabaseUrl = "https://zmlnokldugvrijkmfobv.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptbG5va2xkdWd2cmlqa21mb2J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg4ODk5ODcsImV4cCI6MjA2NDQ2NTk4N30.ogiBSe0Oy7y13GeXgt0crijNZdGHjGCPgVoqVuf-KVE";
