@@ -1,0 +1,4 @@
+feature_id,name,release,module,status,enablement,action_required,description,enabled_in_environment,impact_level,documentation_link
+LMS-2025-001,AI-Powered Learning Recommendations,1H 2025,Learning Management,Preview,Opt-in,Recommended,Enhanced AI capabilities for personalized learning paths,False,Medium,https://help.sap.com/lms-ai-recommendations
+LMS-2025-002,Enhanced Mobile Learning Experience,1H 2025,Learning Management,Production Ready,Universal,Required,Improved mobile interface with offline capabilities,True,High,https://help.sap.com/mobile-learning
+LMS-2024-045,Advanced Reporting Dashboard,2H 2024,Analytics & Reporting,Production,Opt-in,Info Only,New analytics dashboard with customizable widgets,True,Medium,https://help.sap.com/analytics-dashboard
