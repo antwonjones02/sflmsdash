@@ -1,3 +1,0 @@
-issue_id,title,severity,status,affected_modules,workaround,estimated_fix,description
-KI-2025-001,Learning Assignment Synchronization Delay,Medium,Investigating,['Learning Management'],Manual sync available through admin tools,1H 2025 Patch 2,Delays in assignment synchronization between EC and LMS
-KI-2025-002,Mobile App Performance Issues,High,Fix Available,['Mobile Learning'],Use web browser on mobile devices,Resolved in 1H 2025,Performance degradation on iOS devices
