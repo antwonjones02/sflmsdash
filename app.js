@@ -27,7 +27,7 @@ async function loadFeaturesFromSupabase(page = 1) {
     const to = from + itemsPerPage - 1;
 
     let { data: features, error } = await supabase
-        .from("features_releases")
+        .from("feature_releases")
         .select("*")
         .range(from, to);
 
