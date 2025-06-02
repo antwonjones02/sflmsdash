@@ -48,8 +48,7 @@ loadFeaturesFromSupabase(currentPage);
 // DOM Ready
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
-    loadSampleData();
-});
+ });
 
 // Initialize Application
 function initializeApp() {
@@ -57,19 +56,6 @@ function initializeApp() {
     setupEventListeners();
     renderFeatureTable();
     updateDashboardCounts();
-}
-
-// Load sample data on first visit
-function loadSampleData() {
-    if (appData.features.length === 0) {
-        appData.features = sampleData.map(feature => ({
-            ...feature,
-            enablementStatus: 'Not Yet Evaluated'
-        }));
-        saveToStorage();
-        populateFilterOptions();
-        applyFilters();
-    }
 }
 
 // Event Listeners
