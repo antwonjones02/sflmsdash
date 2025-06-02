@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuccessFactors Learning Release Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>SuccessFactors Learning Release Dashboard</h1>
+            <p class="header__subtitle">Enterprise Feature Release Management</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn tab-btn--active" data-tab="feature-releases">Feature Releases</button>
+            <button class="tab-btn" data-tab="known-issues">Known Issues</button>
+            <button class="tab-btn" data-tab="patch-updates">Patch Updates</button>
+            <button class="tab-btn" data-tab="future-releases">Future Releases</button>
+        </nav>
+
+        <!-- Feature Releases Tab -->
+        <div id="feature-releases" class="tab-content tab-content--active">
+            <!-- Import Section -->
+            <section class="import-section">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Import CSV Data</h3>
+                        <p>Upload CSV file from SAP SuccessFactors What's New Viewer</p>
+                        <div class="flex gap-16 items-center">
+                            <input type="file" id="csv-import" accept=".csv" class="form-control file-input">
+                            <button id="import-btn" class="btn btn--primary">Import Data</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <div class="card">
+                    <div class="card__body">
+                        <h3>Filters</h3>
+                        <div class="filters-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="version-filter">Software Version</label>
+                                <select id="version-filter" class="form-control">
+                                    <option value="">All Versions</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="lifecycle-filter">Lifecycle Status</label>
+                                <select id="lifecycle-filter" class="form-control">
+                                    <option value="">All Lifecycle</option>
+                                    <option value="General Availability">General Availability</option>
+                                    <option value="Deprecated">Deprecated</option>
+                                    <option value="Deleted">Deleted</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="enablement-filter">Enablement Type</label>
+                                <select id="enablement-filter" class="form-control">
+                                    <option value="">All Enablement Types</option>
+                                    <option value="Automatically on">Automatically on</option>
+                                    <option value="Customer configured">Customer configured</option>
+                                    <option value="Contact Product Support">Contact Product Support</option>
+                                    <option value="Contact Customer Engagement Executive or Account Manager">Contact Customer Engagement Executive or Account Manager</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="module-filter">Module</label>
+                                <select id="module-filter" class="form-control">
+                                    <option value="">All Modules</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="search-filter">Search</label>
+                                <input type="text" id="search-filter" class="form-control" placeholder="Search features...">
+                            </div>
+                            <div class="form-group">
+                                <button id="clear-filters" class="btn btn--secondary">Clear Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Counts Section -->
+            <section class="dashboard-counts">
+                <div class="counts-grid">
+                    <div class="count-card count-card--total">
+                        <div class="count-card__icon">📊</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="total-count">0</div>
+                            <div class="count-card__label">Total Features</div>
+                        </div>
+                    </div>
+                    <div class="count-card count-card--enabled">
+                        <div class="count-card__icon">✅</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="enabled-count">0</div>
+                            <div class="count-card__label">Enabled Features</div>
+                        </div>
+                    </div>
+                    <div class="count-card count-card--evaluation">
+                        <div class="count-card__icon">🔍</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="evaluation-count">0</div>
+                            <div class="count-card__label">Under Evaluation</div>
+                        </div>
+                    </div>
+                    <div class="count-card count-card--pending">
+                        <div class="count-card__icon">⏳</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="pending-count">0</div>
+                            <div class="count-card__label">Not Yet Evaluated</div>
+                        </div>
+                    </div>
+                    <div class="count-card count-card--disabled">
+                        <div class="count-card__icon">❌</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="disabled-count">0</div>
+                            <div class="count-card__label">Not Enabled</div>
+                        </div>
+                    </div>
+                    <div class="count-card count-card--na">
+                        <div class="count-card__icon">🚫</div>
+                        <div class="count-card__content">
+                            <div class="count-card__number" id="na-count">0</div>
+                            <div class="count-card__label">Not Applicable</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature List -->
+            <section class="feature-list">
+                <div class="card">
+                    <div class="card__body">
+                        <div class="flex justify-between items-center mb-16">
+                            <h3>Features</h3>
+                            <button id="export-btn" class="btn btn--outline">Export CSV</button>
+                        </div>
+                        <div class="table-container">
+                            <table id="features-table" class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th data-sort="Title">Feature Title</th>
+                                        <th data-sort="Reference Number">Reference</th>
+                                        <th data-sort="Description">Description</th>
+                                        <th data-sort="Software Version">Version</th>
+                                        <th data-sort="Module">Module</th>
+                                        <th data-sort="Lifecycle">Lifecycle</th>
+                                        <th data-sort="Enablement">Enablement Type</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Known Issues Tab -->
+        <div id="known-issues" class="tab-content">
+            <div class="card">
+                <div class="card__body">
+                    <h3>Known Issues Management</h3>
+                    <form id="issue-form" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="issue-title">Issue Title</label>
+                            <input type="text" id="issue-title" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="issue-description">Description</label>
+                            <textarea id="issue-description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="affected-release">Affected Release</label>
+                            <input type="text" id="affected-release" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="issue-status">Status</label>
+                            <select id="issue-status" class="form-control">
+                                <option value="Open">Open</option>
+                                <option value="Investigating">Investigating</option>
+                                <option value="Workaround Provided">Workaround Provided</option>
+                                <option value="Resolved">Resolved</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="severity">Severity</label>
+                            <select id="severity" class="form-control">
+                                <option value="Low">Low</option>
+                                <option value="Medium">Medium</option>
+                                <option value="High">High</option>
+                                <option value="Critical">Critical</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="kba-link">KBA Link</label>
+                            <input type="url" id="kba-link" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn--primary">Add Issue</button>
+                        </div>
+                    </form>
+                    <div id="issues-list" class="mt-24"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Patch Updates Tab -->
+        <div id="patch-updates" class="tab-content">
+            <div class="card">
+                <div class="card__body">
+                    <h3>Patch Updates</h3>
+                    <form id="patch-form" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="patch-id">Patch ID</label>
+                            <input type="text" id="patch-id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="release-date">Release Date</label>
+                            <input type="date" id="release-date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="patch-description">Description</label>
+                            <textarea id="patch-description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="doc-link">Documentation Link</label>
+                            <input type="url" id="doc-link" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn--primary">Add Patch</button>
+                        </div>
+                    </form>
+                    <div id="patches-list" class="mt-24"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Releases Tab -->
+        <div id="future-releases" class="tab-content">
+            <div class="card">
+                <div class="card__body">
+                    <h3>Future Releases</h3>
+                    <form id="future-form" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="target-release">Target Release</label>
+                            <input type="text" id="target-release" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="feature-name">Feature Name</label>
+                            <input type="text" id="feature-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="future-description">Description</label>
+                            <textarea id="future-description" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="source-link">Source Link</label>
+                            <input type="url" id="source-link" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn--primary">Add Future Release</button>
+                        </div>
+                    </form>
+                    <div id="future-list" class="mt-24"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
