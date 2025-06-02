@@ -8,11 +8,42 @@ let appData = {
     currentSort: { column: null, direction: 'asc' }
 };
 
-const { data: features, error } = await supabase
-  .from("features")
-  .select("*");
+// Sample data from the provided JSON
 
-appData.features = features;
+// Supabase Client Initialization
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = "https://zmlnokldugvrijkmfobv.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InptbG5va2xkdWd2cmlqa21mb2J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg4ODk5ODcsImV4cCI6MjA2NDQ2NTk4N30.ogiBSe0Oy7y13GeXgt0crijNZdGHjGCPgVoqVuf-KVE";
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+// Pagination Variables
+let currentPage = 1;
+const itemsPerPage = 25;
+
+// Fetch data from Supabase with pagination
+async function loadFeaturesFromSupabase(page = 1) {
+    const from = (page - 1) * itemsPerPage;
+    const to = from + itemsPerPage - 1;
+
+    let { data: features, error } = await supabase
+        .from("features")
+        .select("*")
+        .range(from, to);
+
+    if (error) {
+        console.error("Error loading data:", error);
+        return;
+    }
+
+    appData.features = features;
+    console.log(`Loaded features from Supabase (Page: ${page}):`, features);
+    renderFeatureTable(); // Call your rendering function here
+}
+
+// Call the initial load
+loadFeaturesFromSupabase(currentPage);
+
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', function() {
