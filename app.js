@@ -8,65 +8,11 @@ let appData = {
     currentSort: { column: null, direction: 'asc' }
 };
 
-// Sample data from the provided JSON
-const sampleData = [
-    {
-        "Title": "Joule Available in SAP SuccessFactors Mobile",
-        "Description": "You can now use Joule, SAP's AI copilot, in SAP SuccessFactors Mobile apps.",
-        "Product": "Learning",
-        "Module": "Mobile Applications,SAP Business AI",
-        "Feature": "Joule",
-        "Lifecycle": "General Availability",
-        "Action": "Info only",
-        "Enablement": "Contact Product Support",
-        "Reference Number": "MOB-88140",
-        "Software Version": "1H 2025",
-        "Valid as Of": "2025-05-16",
-        "See More": "https://help.sap.com/docs/PRODUCTS/e9989dc2e5b046ec929e2ad5e8305d24/de22c78b4cfd41a2ab16236b7c41365d.html"
-    },
-    {
-        "Title": "Near Real Time Updates to Learning Entities in Enhanced Search",
-        "Description": "Changes made to learning activity entities and reference entities are now reflected in the enhanced search results in near real time.",
-        "Product": "Learning",
-        "Module": "Content Management",
-        "Feature": "Course Library",
-        "Lifecycle": "General Availability",
-        "Action": "Info only",
-        "Enablement": "Automatically on",
-        "Reference Number": "LRN-153755",
-        "Software Version": "1H 2025",
-        "Valid as Of": "2025-05-16",
-        "See More": "https://help.sap.com/docs/PRODUCTS/8e0d540f96474717bbf18df51e54e522/6d73afd3e70b4029af4f511aa3fcba6b.html"
-    },
-    {
-        "Title": "AI-Assisted Image Generation in Learning",
-        "Description": "You can now use AI-assisted capabilities to generate images for content in Learning Administration.",
-        "Product": "Learning",
-        "Module": "Learning,SAP Business AI",
-        "Feature": "Generative AI,Home Page",
-        "Lifecycle": "General Availability",
-        "Action": "Info only",
-        "Enablement": "Contact Customer Engagement Executive or Account Manager",
-        "Reference Number": "LRN-159091",
-        "Software Version": "1H 2025",
-        "Valid as Of": "2025-05-16",
-        "See More": "https://help.sap.com/docs/PRODUCTS/8e0d540f96474717bbf18df51e54e522/e9878193546043bf8a3414853b1864a8.html"
-    },
-    {
-        "Title": "Deprecation of Support for Webex Training Center",
-        "Description": "Support for Webex Training Center as a VLS vendor in SAP SuccessFactors Learning will reach End of Maintenance on November 14, 2025.",
-        "Product": "Learning",
-        "Module": "Content Delivery",
-        "Feature": "Virtual Learning Systems",
-        "Lifecycle": "Deprecated",
-        "Action": "Required",
-        "Enablement": "Automatically on",
-        "Reference Number": "LRN-195403",
-        "Software Version": "1H 2025",
-        "Valid as Of": "2026-11-13",
-        "See More": "https://help.sap.com/docs/PRODUCTS/8e0d540f96474717bbf18df51e54e522/41fa1e7ac19042eb88d62cddb40267ea.html"
-    }
-];
+const { data: features, error } = await supabase
+  .from("features")
+  .select("*");
+
+appData.features = features;
 
 // DOM Ready
 document.addEventListener('DOMContentLoaded', function() {
