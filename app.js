@@ -22,9 +22,27 @@ async function loadFeaturesFromSupabase(page = 1) {
     }
 
     console.log("Data loaded from Supabase:", features);
-    // Example display logic
-    const container = document.getElementById("data-output");
-    container.innerHTML = features.map(f => `<p><strong>${f.title}</strong>: ${f.description}</p>`).join("");
+
+    const tableBody = document.querySelector("#features-table tbody");
+    if (!tableBody) {
+        console.error("Features table body not found");
+        return;
+    }
+
+    tableBody.innerHTML = features
+        .map((f) => `
+            <tr>
+                <td>${f.title || ""}</td>
+                <td>${f["reference_number"] || ""}</td>
+                <td>${f.description || ""}</td>
+                <td>${f["software_version"] || ""}</td>
+                <td>${f.module || ""}</td>
+                <td>${f.lifecycle || ""}</td>
+                <td>${f.enablement || ""}</td>
+                <td>${f.status || ""}</td>
+            </tr>
+        `)
+        .join("");
 }
 
 document.addEventListener("DOMContentLoaded", function () {
